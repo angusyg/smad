@@ -1,0 +1,26 @@
+#menu {
+  &.navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #0009;
+
+    .nav-link.btn {
+      border-radius: 0;
+      border: none;
+    }
+  }
+
+  .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    img {
+      height: 30px;
+    }
+  }
+
+  a {
+    //margin-left: 10px;
+  }
+
+}

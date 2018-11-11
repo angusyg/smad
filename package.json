@@ -1,0 +1,42 @@
+{
+  "name": "smad",
+  "version": "1.0.0",
+  "description": "Series and Movies Auto Downloader",
+  "main": "./server/build/bin/www.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "concurrently \"cd client && npm i\" \"cd server && npm i\"",
+    "build": "concurrently \"cd client && npm run build\" \"cd server && npm run build\"",
+    "logs": "pm2 logs smad",
+    "start": "pm2 start ecosystem.config.js --env production",
+    "stop": "pm2 delete ecosystem.config.js",
+    "dev": "concurrently \"cd client && npm run start\" \"cd server && npm run dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angusyg/smad.git"
+  },
+  "keywords": [
+    "mean",
+    "mongodb",
+    "express",
+    "angular",
+    "node",
+    "mongoose",
+    "passport",
+    "jsonwebtoken",
+    "pm2",
+    "docker",
+    "docker-compose",
+    "typescript"
+  ],
+  "author": "Angusyg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/angusyg/smad/issues"
+  },
+  "homepage": "https://github.com/angusyg/smad#readme",
+  "devDependencies": {
+    "concurrently": "^3.6.1"
+  }
+}
