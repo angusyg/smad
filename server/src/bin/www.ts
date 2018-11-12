@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
+import { config } from 'dotenv';
 import http from 'http';
 import app from '../app';
 import logger from '../lib/logger';
+
+// Load of environment variables
+config({ path: process.env.NODE_ENV === 'production' ? '.env' : '.env-dev'});
 
 /**
  * Normalizes a port into a number, string, or false.
@@ -10,7 +14,7 @@ import logger from '../lib/logger';
  * @param {(string|number)} val value to normalize
  * @returns {number|string|boolean} port value or false if val is not valid
  */
-function normalizePort(val: string|number) {
+function normalizePort(val: string | number) {
   let port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
   if (isNaN(port)) return val;
   if (port >= 0) return port;
@@ -74,7 +78,7 @@ server.listen(port, () => {
   // For tests
   app.emit('appStarted');
   // For pm2
-  if (process.env.PM2) (<any> process).send('ready');
+  if (process.env.PM2) (<any>process).send('ready');
 });
 
 // Catches server errors

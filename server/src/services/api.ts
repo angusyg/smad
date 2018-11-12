@@ -1,4 +1,5 @@
 import uuidv4 from 'uuid/v4';
+import kindOf from 'kind-of';
 import jwt from 'jsonwebtoken';
 import { tokenSecretKey, accessTokenExpirationTime } from '../config/api';
 import User from '../models/users';
@@ -12,6 +13,13 @@ import { LoginDto, TokenDto, LoginResultDto, IUserDocument, RefreshDto } from '.
  * @class ApiService
  */
 class ApiService {
+
+  constructor() {
+    // Checks configuration value
+    if (kindOf(tokenSecretKey) === undefined || kindOf(tokenSecretKey) === null || kindOf(tokenSecretKey) !== 'string' || tokenSecretKey === '') throw new RangeError(`Configuration: tokenSecretKey value is not valid '${tokenSecretKey}'}`);
+    if (kindOf(accessTokenExpirationTime) === undefined || kindOf(accessTokenExpirationTime) === null || kindOf(accessTokenExpirationTime) !== 'number') throw new RangeError(`Configuration: accessTokenExpirationTime value is not valid '${accessTokenExpirationTime}'}`);
+  }
+
   /**
    * Generates an access token with user infos
    *
@@ -22,14 +30,14 @@ class ApiService {
    */
   private generateAccessToken(user: IUserDocument): string {
     logger.debug(`Generating access token for user with login '${user.login}'`);
-    return jwt.sign(
-      {
+    return jwt.sign({
         id: user._id,
         login: user.login,
         roles: user.roles,
       },
-      tokenSecretKey,
-      { expiresIn: accessTokenExpirationTime }
+      tokenSecretKey, {
+        expiresIn: accessTokenExpirationTime
+      }
     );
   }
 
@@ -39,8 +47,8 @@ class ApiService {
    * @param {LoginDto} infos connection infos (login/password)
    * @returns {Promise<LoginResultDto>} resolved with api tokens, rejected on bad login or errors
    * @memberof ApiService
-  */
-  public login(infos: LoginDto): Promise<LoginResultDto> {
+   */
+  public login(infos: LoginDto): Promise < LoginResultDto > {
     return new Promise(async (resolve, reject) => {
       try {
         logger.debug(`Trying to log in user with login '${infos.login}'`);
@@ -77,7 +85,7 @@ class ApiService {
    * @returns {Promise<TokenDto>} resolved with new access token, rejected on errors
    * @memberof ApiService
    */
-  public refreshToken(user: RefreshDto, refreshToken?: string | string[]): Promise<TokenDto> {
+  public refreshToken(user: RefreshDto, refreshToken ? : string | string[]): Promise < TokenDto > {
     return new Promise(async (resolve, reject) => {
       try {
         // If no refresh token, rejects

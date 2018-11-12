@@ -5,7 +5,7 @@ import logger from '../lib/logger';
 const server: string = process.env.DB_URL || '127.0.0.1:27017';
 
 // Database name
-const database: string = process.env.DB_NAME || 'mean';
+const database: string = process.env.DB_NAME || 'smad';
 
 // Overrides mongoose default promise with es6 Promise (to get full support)
 mongoose.Promise = Promise;

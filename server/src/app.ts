@@ -87,7 +87,7 @@ class App {
     // Static files
     this.app.use(compression());
     // If production env, lets express server serve static resources
-    if (process.env.NODE_ENV === 'production') this.app.use(express.static(path.join(__dirname, '../../client/dist')));
+    if (process.env.SERVE_STATIC === 'true') this.app.use(express.static(path.join(__dirname, '../../client/dist')));
   }
 
   /**

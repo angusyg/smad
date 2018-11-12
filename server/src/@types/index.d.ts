@@ -122,6 +122,11 @@ export interface JwtPayloadDto {
   roles: string[];
 }
 
+
+export interface SearchResultDto  {
+  list: object[];
+}
+
 // ********************************** Models **********************************
 
 // ----------------------------------- User -----------------------------------

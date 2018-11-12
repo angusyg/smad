@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import apiController from '../controllers/api';
+import theMovieDbRouter from '../controllers/themoviedb';
 import { loggerPath, loginPath, refreshPath, logoutPath, validateTokenPath } from '../config/api';
 import { requiresLogin, requiresRole } from '../lib/security';
 import User from '../models/users';
@@ -18,7 +19,7 @@ class ApiRouter {
    */
   constructor() {
     // Router creation
-    this.router = Router();
+    this.router = Router({ mergeParams: true });
     // API routes
     this.routes();
     // REST resources
@@ -90,6 +91,9 @@ class ApiRouter {
      * @name validate
      */
     this.router.get(validateTokenPath, requiresLogin, apiController.validateToken);
+
+    // Adds The Movie DB router to API
+    this.router.use('/tmdb', theMovieDbRouter);
   }
 
   /**
