@@ -160,7 +160,7 @@ export interface IUser {
    * @type {string}
    * @memberof IUser
    */
-  _id: string;
+  _id: any;
 
   /**
    * User login
